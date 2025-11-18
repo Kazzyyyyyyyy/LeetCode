@@ -14,27 +14,27 @@ You can return the answer in any order.
 
 
 Needed time: ~
-Submissions: 2 
-Working submissions: 2
+Submissions: 12 
+Working submissions: 12
 First - last submission: 17 - 17.9.25
+(update: 4.11.25)
 
-Runtime: 41ms - Beats 29.56%
-Memory: 13.92mb - Beats 93.07%
+Runtime: 1ms - Beats 77.56%
+Memory: 14.79mb - Beats 52.01%
 */
 
-#include <vector>
-
-using namespace std; 
-
+//im too lazy to comment, im sry
 
 vector<int> twoSum(vector<int>& nums, int target) {
-    for(int i = 0; i < nums.size(); i++) {
-        for(int a = i + 1; a < nums.size(); a++) {
-            if(nums[i] + nums[a] == target) {
-                return {i, a};
-            }
-        }
-    }    
+  unordered_map<int,int> mp;
+  
+  for(int i = 0; i < nums.size(); i++) {
+    int x = target - nums[i];
+    if(mp.count(x))
+      return { mp[x], i };
+      
+    mp[nums[i]] = i;
+  }
 
-    return {0, 0}; //never gets here
+  throw logic_error("target not found");
 }

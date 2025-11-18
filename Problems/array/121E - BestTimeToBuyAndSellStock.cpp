@@ -13,12 +13,13 @@ Return the maximum profit you can achieve from this transaction. If you cannot a
 
 
 Needed time: ~
-Submissions: 18
-Working submissions: 5
-First - last submission: 21 - 21.9.25
+Submissions: 28
+Working submissions: 9
+First - last submission: 21 - 21.9.25 
+(update: 3.11.25)
 
-Runtime: 386ms - Beats 6.44%
-Memory: 97.34mb - Beats 60.67%
+Runtime: 0ms - Beats 100%
+Memory: 97.27mb - Beats 86.87%
 */
 
 #include <vector>
@@ -27,24 +28,19 @@ Memory: 97.34mb - Beats 60.67%
 using namespace std; 
 
 
-int maxProfit(const vector<int>& prices) {
+int maxProfit(vector<int>& prices) {
+  int s = prices.size(); 
+  if(s < 2) 
+    return 0;  
+  
+  int minPrice = prices[0];
+  int maxProfit = 0;
+ 
+  for(int i = 1; i < s; i++) {
+    int currProfit = prices[i] - minPrice;
+    maxProfit = max(maxProfit, currProfit);
+    minPrice = min(minPrice, prices[i]);
+  }
 
-    if(prices.size() < 2) 
-        return 0; 
-        
-    int maxDiff = -1, min = -1; 
-
-    for(int i = 0; i < prices.size(); i++) {
-        if(min == -1 || prices[i] < min) {
-            min = prices[i]; 
-
-            int max = *max_element(prices.begin() + i, prices.end()); 
-    
-            if(maxDiff < (max - min)) 
-                maxDiff = (max - min); 
-            
-        }
-    }
-
-    return maxDiff;
+  return maxProfit;
 }
